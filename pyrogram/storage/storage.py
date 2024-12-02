@@ -22,72 +22,70 @@ from typing import List, Tuple
 
 
 class Storage:
-    OLD_SESSION_STRING_FORMAT = ">S?234pL?"
-    OLD_SESSION_STRING_FORMAT_64 = ">S?234pI?"
+    OLD_SESSION_STRING_FORMAT = ">B?256sI?"
+    OLD_SESSION_STRING_FORMAT_64 = ">B?256sQ?"
     SESSION_STRING_SIZE = 351
     SESSION_STRING_SIZE_64 = 356
 
-    SESSION_STRING_FORMAT = ">BL?234pI"
+    SESSION_STRING_FORMAT = ">BI?256sQ?"
 
     def __init__(self, name: str):
         self.name = name
 
     async def open(self):
-        raise NotImplementedError("The `open` method is not implemented")
+        raise NotImplementedError
 
     async def save(self):
-        raise NotImplementedError("The `save` method is not implemented")
+        raise NotImplementedError
 
     async def close(self):
-        raise NotImplementedError("The `close` method is not implemented")
+        raise NotImplementedError
 
     async def delete(self):
-        raise NotImplementedError("The `delete` method is not implemented")
+        raise NotImplementedError
 
     async def update_peers(self, peers: List[Tuple[int, int, str, str, str]]):
-        raise NotImplementedError("The `update_peers` method is not implemented")
+        raise NotImplementedError
 
     async def get_peer_by_id(self, peer_id: int):
-        raise NotImplementedError("The `get_peer_by_id` method is not implemented")
+        raise NotImplementedError
 
     async def get_peer_by_username(self, username: str):
-        raise NotImplementedError("The `get_peer_by_username` method is not implemented")
+        raise NotImplementedError
 
     async def get_peer_by_phone_number(self, phone_number: str):
-        raise NotImplementedError("The `get_peer_by_phone_number` method is not implemented")
+        raise NotImplementedError
 
     async def dc_id(self, value: int = object):
-        raise NotImplementedError("The `dc_id` method is not implemented")
+        raise NotImplementedError
 
     async def api_id(self, value: int = object):
-        raise NotImplementedError("The `api_id` method is not implemented")
+        raise NotImplementedError
 
     async def test_mode(self, value: bool = object):
-        raise NotImplementedError("The `test_mode` method is not implemented")
+        raise NotImplementedError
 
     async def auth_key(self, value: bytes = object):
-        raise NotImplementedError("The `auth_key` method is not implemented")
+        raise NotImplementedError
 
     async def date(self, value: int = object):
-        raise NotImplementedError("The `date` method is not implemented")
+        raise NotImplementedError
 
     async def user_id(self, value: int = object):
-        raise NotImplementedError("The `user_id` method is not implemented")
+        raise NotImplementedError
 
     async def is_bot(self, value: bool = object):
-        raise NotImplementedError("The `is_bot` method is not implemented")
+        raise NotImplementedError
 
     async def export_session_string(self):
-        try:
-            packed = struct.pack(
-                self.SESSION_STRING_FORMAT,
-                await self.dc_id(),
-                await self.api_id(),
-                await self.test_mode(),
-                await self.auth_key(),
-                await self.user_id(),
-                await self.is_bot()
-            )
-            return base64.urlsafe_b64encode(packed).decode().rstrip("=")
-        except Exception as e:
-            raise RuntimeError(f"Failed to export session string: {e}")
+        packed = struct.pack(
+            self.SESSION_STRING_FORMAT,
+            await self.dc_id(),
+            await self.api_id(),
+            await self.test_mode(),
+            await self.auth_key(),
+            await self.user_id(),
+            await self.is_bot()
+        )
+
+        return base64.urlsafe_b64encode(packed).decode().rstrip("=")
