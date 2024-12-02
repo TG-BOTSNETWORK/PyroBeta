@@ -179,7 +179,7 @@ class Client(Methods):
             Defaults to 1.
     """
 
-    APP_VERSION = f"Pyrogram {__version__}"
+    APP_VERSION = f"PyroBeta {__version__}"
     DEVICE_MODEL = f"{platform.python_implementation()} {platform.python_version()}"
     SYSTEM_VERSION = f"{platform.system()} {platform.release()}"
 
@@ -332,15 +332,15 @@ class Client(Methods):
         if self.bot_token:
             return await self.sign_in_bot(self.bot_token)
 
-        print(f"Welcome to Pyrogram (version {__version__})")
-        print(f"Pyrogram is free software and comes with ABSOLUTELY NO WARRANTY. Licensed\n"
+        print(f"Welcome to PyroBeta (version {__version__})")
+        print("PyroBeta is free software and comes with ABSOLUTELY NO WARRANTY. Licensed\n"
               f"under the terms of the {__license__}.\n")
 
         while True:
             try:
                 if not self.phone_number:
                     while True:
-                        value = await ainput("Enter phone number or bot token: ")
+                        value = await ainput("Enter Your phone number or bot token: ")
 
                         if not value:
                             continue
@@ -373,7 +373,7 @@ class Client(Methods):
             enums.SentCodeType.EMAIL_CODE: "email code"
         }
 
-        print(f"The confirmation code has been sent via {sent_code_descriptions[sent_code.type]}")
+        print(f"The confirmation code has been sent to your device via {sent_code_descriptions[sent_code.type]}")
 
         while True:
             if not self.phone_code:
@@ -388,14 +388,14 @@ class Client(Methods):
                 print(e.MESSAGE)
 
                 while True:
-                    print("Password hint: {}".format(await self.get_password_hint()))
+                    print("Your Password hint: {}".format(await self.get_password_hint()))
 
                     if not self.password:
-                        self.password = await ainput("Enter password (empty to recover): ", hide=self.hide_password)
+                        self.password = await ainput("Enter Your password (empty to recover): ", hide=self.hide_password)
 
                     try:
                         if not self.password:
-                            confirm = await ainput("Confirm password recovery (y/n): ")
+                            confirm = await ainput("Confirm Your password to recovery (y/n): ")
 
                             if confirm == "y":
                                 email_pattern = await self.send_recovery_code()
@@ -425,8 +425,8 @@ class Client(Methods):
             return signed_in
 
         while True:
-            first_name = await ainput("Enter first name: ")
-            last_name = await ainput("Enter last name (empty to skip): ")
+            first_name = await ainput("Enter Your first name: ")
+            last_name = await ainput("Enter Your last name (empty to skip): ")
 
             try:
                 signed_up = await self.sign_up(
@@ -772,10 +772,10 @@ class Client(Methods):
                                     self.name, name, module_path))
 
             if count > 0:
-                log.info('[{}] Successfully loaded {} plugin{} from "{}"'.format(
+                log.info('[{}] Successfully loaded {} Modules{} from "{}"'.format(
                     self.name, count, "s" if count > 1 else "", root))
             else:
-                log.warning('[%s] No plugin loaded from "%s"', self.name, root)
+                log.warning('[%s] No Module loaded from "%s"', self.name, root)
 
     async def handle_download(self, packet):
         file_id, directory, file_name, in_memory, file_size, progress, progress_args = packet
