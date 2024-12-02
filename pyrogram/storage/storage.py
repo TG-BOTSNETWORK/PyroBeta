@@ -22,12 +22,12 @@ from typing import List, Tuple
 
 
 class Storage:
-    OLD_SESSION_STRING_FORMAT = ">B?256sI?"
-    NEW_SESSION_STRING_FORMAT = ">BCT?7Si"
+    OLD_SESSION_STRING_FORMAT = ">S?234pL?"
+    OLD_SESSION_STRING_FORMAT_64 = ">S?234pI?"
     SESSION_STRING_SIZE = 351
     SESSION_STRING_SIZE_64 = 356
 
-    SESSION_STRING_FORMAT = ">BCT?7Si"
+    SESSION_STRING_FORMAT = ">BL?234pI"
 
     def __init__(self, name: str):
         self.name = name
